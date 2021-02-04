@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 20:41:36 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/03 21:46:49 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/04 14:49:00 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int			main(void)
 		if (pthread_create(&threads[2], NULL, func_thread, t3))
 			error_msg("Fail to create thread 3\n.");
 		if (pthread_join(threads[0], &status[0]))
-			error_msg("Fail to create join 1\n.");
+			error_msg("Fail to join thread 1\n.");
 		if (pthread_join(threads[1], &status[1]))
-			error_msg("Fail to create join 2\n.");
+			error_msg("Fail to join thread 2\n.");
 		if (pthread_join(threads[2], &status[2]))
-			error_msg("Fail to create join 3\n.");
+			error_msg("Fail to join thread 3\n.");
 		printf("\n");
 	}
 	pthread_mutex_destroy(&g_number);
