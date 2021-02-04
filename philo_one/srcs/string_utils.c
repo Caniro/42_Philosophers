@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:07:03 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/03 18:46:38 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/04 18:51:29 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,21 @@ int			ft_atoi(const char *str)
 void		ft_putstr(char *str)
 {
 	write(1, str, ft_strlen(str));
+}
+
+void		ft_putnbr(long long n)
+{
+	if (n == LONG_LONG_MIN)
+		write(1, "–9223372036854775808", 20);
+	else
+	{
+		if (n < 0)
+		{
+			write(1, "-", 1);
+			n *= -1;
+		}
+		if (n > 9)
+			ft_putnbr(n / 10);
+		write(1, &"0123456789"[n % 10], 1);
+	}
 }
