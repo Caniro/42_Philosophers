@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/03 18:01:52 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/05 21:38:20 by yuhan            ###   ########.fr       */
+/*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
+/*   Updated: 2021/02/05 22:22:23 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-int			main(int argc, char *argv[])
+void		print_timestamp(u_int32_t time, t_philo *p, char *str)
 {
-	if (argc < 5)
-		ft_putstr("Not enough arguments.\n");
-	else if (argc > 6)
-		ft_putstr("Too much arguments.\n");
-	else
-		return (philosophers(argc, argv));
-	return (EXIT_FAILURE);
+	pthread_mutex_lock(&p->c->fd_stdout);
+	ft_putnbr(time);
+	ft_putstr(" ");
+	ft_putnbr(p->index + 1);
+	ft_putstr(str);
+	pthread_mutex_unlock(&p->c->fd_stdout);
+}
+
+u_int32_t	get_time_ms(void)
+{
+	t_timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }

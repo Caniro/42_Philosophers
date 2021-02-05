@@ -6,95 +6,84 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:19:55 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/04 20:15:05 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/05 23:25:42 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void		print_timestamp(t_timeval time, int index, char *str, \
-							pthread_mutex_t *fd_stdout)
+int			is_time_to_die(t_timeval *before, t_philo *p)
 {
-	pthread_mutex_lock(fd_stdout);
-	ft_putnbr(time.tv_sec * 1000000 + time.tv_usec);
-	ft_putstr(" ");
-	ft_putnbr(index);
-	ft_putstr(" ");
-	// enum으로 flag 세워서 분기(F_FORK, F_EAT, F_SLEEP, F_THINK, F_DIE)
-	// 아니면 매크로로 문자열 설정해도 괜찮을 듯
-	ft_putstr(str);
-	pthread_mutex_unlock(fd_stdout);
+	if ((get_time_ms() - \
+		(u_int32_t)(before->tv_sec * 1000 + before->tv_usec / 1000)) >= \
+		(u_int32_t)p->c->ttd)
+		return (TRUE);
+	return (FALSE);
+}
+
+int			is_philo_full(t_philo *p)
+{
+	if (p->c->must_eat == 0)
+		return (FALSE);
+	if (p->count >= p->c->must_eat)
+		return (TRUE);
+	return (FALSE);
 }
 
 void		*act_philo(void *value)
 {
 	t_philo			*p;
-	struct timeval	after_eat;
-	struct timeval	before_eat;
+	t_timeval		before_eat;
 	int				first_time;
 
 	p = (t_philo *)value;
 	first_time = TRUE;
 	while (1)
 	{
-		pthread_mutex_lock(&p->a->fork[p->index]);
-		pthread_mutex_lock(&p->a->fork[(p->index + 1) % p->a->total_number]);
-		gettimeofday(&before_eat, NULL);
-		print_timestamp(before_eat, p->index, "has taken a fork\n", &p->a->fd_stdout);
-		if (!first_time && (before_eat.tv_sec - after_eat.tv_sec) * 1000000 + \
-			(before_eat.tv_usec - after_eat.tv_usec) >= (long)p->a->ttd * 1000)
-		{
-			print_timestamp(before_eat, p->index, "has died\n", &p->a->fd_stdout);
-			pthread_mutex_unlock(&p->a->fork[p->index]);
-			pthread_mutex_unlock(&p->a->fork[(p->index + 1) % p->a->total_number]);
+		wait_forks(p);
+		if (!first_time && is_time_to_die(&before_eat, p))
+			return (rest_in_peace(p));
+		lets_eat(p, &before_eat, &first_time);
+		if (is_philo_full(p))
 			return (EXIT_SUCCESS);
-		}
-		gettimeofday(&before_eat, NULL);
-		print_timestamp(before_eat, p->index, "is eating\n", &p->a->fd_stdout);
-		first_time = FALSE;
-		usleep(p->a->tte * 1000);
-		pthread_mutex_unlock(&p->a->fork[p->index]);
-		pthread_mutex_unlock(&p->a->fork[(p->index + 1) % p->a->total_number]);
-		// 횟수 체크
-		gettimeofday(&after_eat, NULL);
-		print_timestamp(after_eat, p->index, "is sleeping\n", &p->a->fd_stdout);
-		usleep(p->a->tts * 1000);
-		gettimeofday(&after_eat, NULL);
-		print_timestamp(after_eat, p->index, "is thinking\n", &p->a->fd_stdout);
+		lets_sleep(p);
+		lets_think(p);
 	}
 	return (EXIT_SUCCESS);
 }
 
-static int	end_philo(t_arg **pa)
-{
-	free((*pa)->status);
-	free((*pa)->threads);
-	free((*pa)->fork);
-	free((*pa));
-	// 뮤텍스도 destroy
-	(*pa) = NULL;
-	return (EXIT_SUCCESS);
-}
+// static int	end_philo(t_common *c)
+// {
+// 	free(c->status);
+// 	free(c->threads);
+// 	free(c->fork);
+// 	// 뮤텍스도 destroy
+// 	return (EXIT_SUCCESS);
+// }
 
 int			philosophers(int argc, char *argv[])
 {
-	t_arg		*a;
+	t_common	c;
 	t_philo		*p;
-	u_int32_t	i;
+	int			i;
 
-	if (init_philo(&a, &p, argc, argv))
+	if (init_philo(&c, &p, argc, argv))
 		return (EXIT_FAILURE);
 	i = -1;
-	while (++i < (u_int32_t)a->total_number)
+	while (++i < c.total_number)
 	{
 		p[i].index = i;
-		if (pthread_create(&a->threads[i], NULL, act_philo, &p[i]))
+		if (pthread_create(&c.threads[i], NULL, act_philo, &p[i]))
 			ft_putstr("Fail to create thread\n");
+		pthread_detach(c.threads[i]);
+		usleep(100);
 	}
-	i = -1;
-	while (++i < (u_int32_t)a->total_number)
-		if (pthread_join(a->threads[i], &a->status[i]))
-			ft_putstr("Fail to join thread\n");
-	end_philo(&a);
+	pthread_mutex_lock(&c.death);
+	pthread_mutex_unlock(&c.death);
+	// i = -1;
+	// while (++i < c.total_number)
+	// 	if (pthread_join(c.threads[i], &c.status[i]))
+	// 		ft_putstr("Fail to join thread\n");
+	// end_philo(&c);
 	return (EXIT_SUCCESS);
 }
