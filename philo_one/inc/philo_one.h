@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:04:44 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/05 22:41:09 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/08 09:11:15 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <limits.h>
+# include <stdio.h>
 # include "philo_one_struct.h"
-
-#include <stdio.h> //
 
 /*
 **	accurate_sleep

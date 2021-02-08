@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:19:55 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/05 23:25:42 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/08 09:14:05 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			philosophers(int argc, char *argv[])
 	{
 		p[i].index = i;
 		if (pthread_create(&c.threads[i], NULL, act_philo, &p[i]))
-			ft_putstr("Fail to create thread\n");
+			printf("Fail to create thread\n");
 		pthread_detach(c.threads[i]);
 		usleep(100);
 	}
@@ -83,7 +83,7 @@ int			philosophers(int argc, char *argv[])
 	// i = -1;
 	// while (++i < c.total_number)
 	// 	if (pthread_join(c.threads[i], &c.status[i]))
-	// 		ft_putstr("Fail to join thread\n");
+	// 		printf("Fail to join thread\n");
 	// end_philo(&c);
 	return (EXIT_SUCCESS);
 }

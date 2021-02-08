@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:01:52 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/05 21:38:20 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/08 09:13:44 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int			main(int argc, char *argv[])
 {
 	if (argc < 5)
-		ft_putstr("Not enough arguments.\n");
+		printf("Not enough arguments.\n");
 	else if (argc > 6)
-		ft_putstr("Too much arguments.\n");
+		printf("Too much arguments.\n");
 	else
 		return (philosophers(argc, argv));
 	return (EXIT_FAILURE);

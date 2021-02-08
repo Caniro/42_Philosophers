@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/05 22:22:23 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/08 09:14:22 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void		print_timestamp(u_int32_t time, t_philo *p, char *str)
 {
 	pthread_mutex_lock(&p->c->fd_stdout);
-	ft_putnbr(time);
-	ft_putstr(" ");
-	ft_putnbr(p->index + 1);
-	ft_putstr(str);
+	printf("%u %d %s", time, p->index + 1, str);
 	pthread_mutex_unlock(&p->c->fd_stdout);
 }
 
