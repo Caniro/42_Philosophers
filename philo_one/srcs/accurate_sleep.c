@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 18:46:08 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/05 19:12:26 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/08 21:08:09 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ void		accurate_sleep(u_int32_t time_ms)
 	time_us = time_ms * 1000;
 	target_time = get_time_now() + time_us;
 	while (get_time_now() < target_time)
-		usleep(20);
+		usleep(100);
 }

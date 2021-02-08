@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:04:44 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 09:11:15 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/08 20:18:46 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <limits.h>
 # include <stdio.h>
 # include "philo_one_struct.h"
+# include "ansi_color.h"
+# include "circular_queue.h"
 
 /*
 **	accurate_sleep
@@ -34,9 +36,35 @@ void		accurate_sleep(u_int32_t time_ms);
 
 void		*rest_in_peace(t_philo *p);
 void		wait_forks(t_philo *p);
-void		lets_eat(t_philo *p, t_timeval *a, int *first_time);
+void		lets_eat(t_philo *p);
 void		lets_sleep(t_philo *p);
 void		lets_think(t_philo *p);
+
+/*
+**	checker
+*/
+
+void		create_full_checker(t_philo *p);
+void		create_hunger_checker(t_philo *p);
+
+/*
+**	circular queue
+*/
+
+void		queue_push(t_cqueue *queue, int num);
+int			queue_pop(t_cqueue *queue);
+
+/*
+**	cleanup
+*/
+
+int			cleanup_philo(t_common *c, t_philo **pp);
+
+/*
+**	error
+*/
+
+int			error_msg(const char *msg);
 
 /*
 **	init

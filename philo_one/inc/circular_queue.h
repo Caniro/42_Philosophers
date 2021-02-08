@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   circular_queue.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 10:17:58 by yuhan            ###   ########.fr       */
+/*   Created: 2021/02/08 20:02:50 by yuhan             #+#    #+#             */
+/*   Updated: 2021/02/08 20:09:08 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#ifndef CIRCULAR_QUEUE_H
+# define CIRCULAR_QUEUE_H
 
-void		print_timestamp(u_int32_t time, t_philo *p, char *str)
+typedef struct	s_cqueue
 {
-	pthread_mutex_lock(&p->c->fd_stdout);
-	printf("%u\t%d %s", time, p->index + 1, str);
-	pthread_mutex_unlock(&p->c->fd_stdout);
-}
+	int			front;
+	int			rear;
+	int			total;
+	int			*q;
+}				t_cqueue;
 
-u_int32_t	get_time_ms(void)
-{
-	t_timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
+#endif

@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   circular_queue.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 10:17:58 by yuhan            ###   ########.fr       */
+/*   Created: 2021/02/08 20:02:37 by yuhan             #+#    #+#             */
+/*   Updated: 2021/02/08 20:17:34 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "circular_queue.h"
 
-void		print_timestamp(u_int32_t time, t_philo *p, char *str)
+void		queue_push(t_cqueue *queue, int num)
 {
-	pthread_mutex_lock(&p->c->fd_stdout);
-	printf("%u\t%d %s", time, p->index + 1, str);
-	pthread_mutex_unlock(&p->c->fd_stdout);
+	if (queue->rear >= queue->total)
+		queue->rear = 0;
+	queue->q[queue->rear % queue->total] = num;
+	queue->rear++;
 }
 
-u_int32_t	get_time_ms(void)
+int			queue_pop(t_cqueue *queue)
 {
-	t_timeval	tv;
+	int		tmp;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	tmp = queue->q[queue->front];
+	queue->front++;
+	if (queue->front >= queue->total)
+		queue->front = 0;
+	return (tmp);
 }

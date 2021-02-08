@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   ansi_color.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 10:17:58 by yuhan            ###   ########.fr       */
+/*   Created: 2021/02/08 12:35:25 by yuhan             #+#    #+#             */
+/*   Updated: 2021/02/08 12:35:50 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#ifndef ANSI_COLOR_H
+# define ANSI_COLOR_H
 
-void		print_timestamp(u_int32_t time, t_philo *p, char *str)
-{
-	pthread_mutex_lock(&p->c->fd_stdout);
-	printf("%u\t%d %s", time, p->index + 1, str);
-	pthread_mutex_unlock(&p->c->fd_stdout);
-}
+# define ANSI_COLOR_RED     "\x1b[31m"
+# define ANSI_COLOR_GREEN   "\x1b[32m"
+# define ANSI_COLOR_YELLOW  "\x1b[33m"
+# define ANSI_COLOR_BLUE    "\x1b[34m"
+# define ANSI_COLOR_MAGENTA "\x1b[35m"
+# define ANSI_COLOR_CYAN    "\x1b[36m"
+# define ANSI_COLOR_RESET   "\x1b[0m"
 
-u_int32_t	get_time_ms(void)
-{
-	t_timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
-}
+#endif
