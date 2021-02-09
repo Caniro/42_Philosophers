@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:04:44 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 00:58:37 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/10 01:15:15 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int			queue_pop(t_cqueue *queue);
 **	cleanup
 */
 
-int			cleanup_philo(t_common *c, t_philo **pp);
-void		unlink_semaphores(t_common *c);
+int			cleanup_philo(t_philo **pp);
+void		unlink_semaphores();
 
 /*
 **	error

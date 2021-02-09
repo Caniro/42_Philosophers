@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:19:55 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 00:39:36 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/10 01:15:11 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ int			philosophers(int argc, char *argv[])
 		printf(ANSI_COLOR_GREEN "\nComplete!\n" ANSI_COLOR_RESET);
 	else
 		printf(ANSI_COLOR_RED "\nA philosopher died...\n" ANSI_COLOR_RESET);
-	cleanup_philo(&c, &p);
+	cleanup_philo(&p);
 	return (EXIT_SUCCESS);
 }

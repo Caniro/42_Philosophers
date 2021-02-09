@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 14:32:27 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 00:59:06 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/10 01:12:20 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	set_philos(t_philo *p, t_common *c)
 
 static int	init_semaphores(t_common *c)
 {
-	unlink_semaphores(c);
+	unlink_semaphores();
 	if ((c->fork = sem_open(SEM_FORK, O_CREAT, 0644, c->total_number)) \
 		== SEM_FAILED)
 		return (error_msg("Fail to init semaphore\n"));
