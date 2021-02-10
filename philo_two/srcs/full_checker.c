@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:24:22 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 00:29:09 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/10 19:25:19 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	*full_checker(void *value)
 				break ;
 			if (i == p->c->total_number - 1)
 			{
-				sem_post(p->c->death);
 				p->c->complete = TRUE;
+				sem_post(p->c->death);
 				return (NULL);
 			}
 		}
