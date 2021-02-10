@@ -6,12 +6,12 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:20:42 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 00:57:57 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/10 19:16:14 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_two_STRUCT_H
-# define PHILO_two_STRUCT_H
+#ifndef PHILO_TWO_STRUCT_H
+# define PHILO_TWO_STRUCT_H
 
 # include "circular_queue.h"
 
@@ -28,8 +28,7 @@
 # define SEM_STDOUT	"sem_stdout"
 # define SEM_DEATH	"sem_death"
 # define SEM_DEATHC	"sem_death_check"
-# define SEM_QUEUE	"sem_death_queue"
-
+# define SEM_QUEUE	"sem_queue"
 
 struct				s_common;
 typedef struct 		timeval
