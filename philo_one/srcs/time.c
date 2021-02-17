@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 10:17:58 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/17 22:33:22 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,23 @@ u_int32_t	get_time_ms(void)
 
 	gettimeofday(&tv, NULL);
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+u_int32_t	get_time_us(void)
+{
+	t_timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000000 + tv.tv_usec);
+}
+
+void		accurate_sleep(u_int32_t time_ms)
+{
+	u_int32_t	time_us;
+	u_int32_t	target_time;
+
+	time_us = time_ms * 1000;
+	target_time = get_time_us() + time_us;
+	while (get_time_us() < target_time)
+		usleep(100);
 }

@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:24:22 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 12:31:34 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/17 21:15:47 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ static void	*full_checker(void *value)
 				break ;
 			if (i == p->c->total_number - 1)
 			{
-				pthread_mutex_unlock(&p->c->death);
-				p->c->complete = TRUE;
+				p->c->full_everyone = TRUE;
+				pthread_mutex_unlock(&p->c->end);
 				return (NULL);
 			}
 		}
 	}
 }
 
-void		create_full_checker(t_philo *p)
+int			create_full_checker(t_philo *p)
 {
 	pthread_t	thread;
 
 	if (pthread_create(&thread, NULL, full_checker, p))
-		printf("Fail to create full checker thread\n");
+		return (error_msg("Fail to create full checker thread\n"));
 	pthread_detach(thread);
+	return (EXIT_SUCCESS);
 }

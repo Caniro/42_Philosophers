@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:04:44 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/08 20:18:46 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/17 22:33:18 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@
 # include "circular_queue.h"
 
 /*
-**	accurate_sleep
-*/
-
-void		accurate_sleep(u_int32_t time_ms);
-
-/*
 **	actions
 */
 
@@ -44,8 +38,8 @@ void		lets_think(t_philo *p);
 **	checker
 */
 
-void		create_full_checker(t_philo *p);
-void		create_hunger_checker(t_philo *p);
+int			create_full_checker(t_philo *p);
+int			create_hunger_checker(t_philo *p);
 
 /*
 **	circular queue
@@ -65,12 +59,13 @@ int			cleanup_philo(t_common *c, t_philo **pp);
 */
 
 int			error_msg(const char *msg);
+int			error_msg_end(const char *msg, t_philo *p);
 
 /*
 **	init
 */
 
-int			init_philo(t_common *pc, t_philo **pp, int argc, char *argv[]);
+int			init_struct(t_common *pc, t_philo **pp, int argc, char *argv[]);
 
 /*
 **	philosophers
@@ -83,9 +78,8 @@ int			philosophers(int argc, char *argv[]);
 */
 
 size_t		ft_strlen(const char *str);
-void		ft_putstr(char *str);
 int			ft_atoi(const char *str);
-void		ft_putnbr(long long n);
+u_int32_t	ft_atoi_pos(const char *str);
 
 /*
 **	time
@@ -93,5 +87,7 @@ void		ft_putnbr(long long n);
 
 void		print_timestamp(u_int32_t time, t_philo *p, char *str);
 u_int32_t	get_time_ms(void);
+u_int32_t	get_time_us(void);
+void		accurate_sleep(u_int32_t time_ms);
 
 #endif
