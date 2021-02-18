@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:28:27 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/17 22:19:57 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 20:38:17 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	*hunger_checker(void *value)
 	t_philo			*p;
 
 	p = (t_philo *)value;
-	while (p->is_full == FALSE)
+	while (p->is_full == FALSE && p->c->someone_died == FALSE)
 	{
 		if (is_time_to_die(p))
 			return (rest_in_peace(p));

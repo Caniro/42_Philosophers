@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:19:55 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/17 22:36:09 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 19:20:22 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 static void	wait_for_end(t_common *c)
 {
 	pthread_mutex_lock(&c->end);
+	usleep(1000);
 }
 
 static int	is_philo_full(t_philo *p)
 {
 	if (p->c->must_eat > 0 && p->eating_count >= p->c->must_eat)
+	{
+		p->is_full = TRUE;
 		return (TRUE);
+	}
 	return (FALSE);
 }
 
@@ -32,16 +36,15 @@ static void	*sit_down(void *value)
 	p->last_eat = get_time_ms();
 	if (create_hunger_checker(p))
 		return (NULL);
-	while (1)
+	while (p->c->someone_died == FALSE)
 	{
 		wait_forks(p);
 		lets_eat(p);
-		if (is_philo_full(p))
+		if (is_philo_full(p) || p->c->someone_died)
 			break ;
 		lets_sleep(p);
 		lets_think(p);
 	}
-	p->is_full = TRUE;
 	return (NULL);
 }
 

@@ -1,2 +1,0 @@
-- deadlock
-./philo_one 2 99999 1 0

@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/17 22:33:22 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:53:16 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void		print_timestamp(u_int32_t time, t_philo *p, char *str)
 {
 	pthread_mutex_lock(&p->c->fd_stdout);
-	printf("%u\t%d %s", time, p->index + 1, str);
+	if (p->c->someone_died == FALSE)
+		printf("%u\t%d %s", time, p->index + 1, str);
 	pthread_mutex_unlock(&p->c->fd_stdout);
 }
 

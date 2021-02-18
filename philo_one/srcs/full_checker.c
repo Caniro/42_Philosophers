@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:24:22 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/17 21:15:47 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 22:54:44 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static void	*full_checker(void *value)
 	int			i;
 
 	p = (t_philo *)value;
-	while (1)
+	while (p->c->someone_died == FALSE)
 	{
-		usleep(1000);
+		usleep(500);
 		i = -1;
-		while (++i < p->c->total_number)
+		while ((p->c->someone_died == FALSE) && (++i < p->c->total_number))
 		{
 			if (p[i].is_full == FALSE)
 				break ;
@@ -34,6 +34,7 @@ static void	*full_checker(void *value)
 			}
 		}
 	}
+	return (NULL);
 }
 
 int			create_full_checker(t_philo *p)
@@ -41,7 +42,7 @@ int			create_full_checker(t_philo *p)
 	pthread_t	thread;
 
 	if (pthread_create(&thread, NULL, full_checker, p))
-		return (error_msg("Fail to create full checker thread\n"));
+		return (error_msg_end("Fail to create full checker thread\n", p));
 	pthread_detach(thread);
 	return (EXIT_SUCCESS);
 }
