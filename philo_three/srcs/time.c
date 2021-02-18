@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 22:15:19 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 19:16:53 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 23:34:42 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void		print_timestamp(u_int32_t time, t_philo *p, char *str)
 {
 	sem_wait(p->c->fd_stdout);
-	printf(ANSI_COLOR_RESET);
-	printf("%u\t%d %s", time, p->index + 1, str);
+	if (p->c->someone_died == FALSE)
+		printf("%u\t%d %s", time, p->index + 1, str);
 	sem_post(p->c->fd_stdout);
 }
 
