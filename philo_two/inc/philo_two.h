@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:04:44 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 01:15:15 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 22:27:43 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <semaphore.h>
 # include "philo_two_struct.h"
 # include "ansi_color.h"
-# include "circular_queue.h"
 
 /*
 **	accurate_sleep
@@ -45,34 +44,28 @@ void		lets_think(t_philo *p);
 **	checker
 */
 
-void		create_full_checker(t_philo *p);
-void		create_hunger_checker(t_philo *p);
-
-/*
-**	circular queue
-*/
-
-void		queue_push(t_cqueue *queue, int num);
-int			queue_pop(t_cqueue *queue);
+int			create_full_checker(t_philo *p);
+int			create_hunger_checker(t_philo *p);
 
 /*
 **	cleanup
 */
 
 int			cleanup_philo(t_philo **pp);
-void		unlink_semaphores();
+void		cleanup_semaphores(void);
 
 /*
 **	error
 */
 
 int			error_msg(const char *msg);
+int			error_msg_end(const char *msg, t_philo *p);
 
 /*
 **	init
 */
 
-int			init_philo(t_common *pc, t_philo **pp, int argc, char *argv[]);
+int			init_struct(t_common *pc, t_philo **pp, int argc, char *argv[]);
 
 /*
 **	philosophers
@@ -85,9 +78,8 @@ int			philosophers(int argc, char *argv[]);
 */
 
 size_t		ft_strlen(const char *str);
-void		ft_putstr(char *str);
 int			ft_atoi(const char *str);
-void		ft_putnbr(long long n);
+u_int32_t	ft_atoi_pos(const char *str);
 
 /*
 **	time

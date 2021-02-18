@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 12:28:27 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/10 00:32:09 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 22:58:28 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static int	is_time_to_die(t_philo *p)
 {
-	if ((get_time_ms() - \
-		(u_int32_t)(p->last_eat.tv_sec * 1000 + p->last_eat.tv_usec / 1000)) >= \
-		(u_int32_t)p->c->ttd)
+	if (get_time_ms() >= (p->last_eat + p->c->ttd))
 		return (TRUE);
 	return (FALSE);
 }
@@ -26,24 +24,21 @@ static void	*hunger_checker(void *value)
 	t_philo			*p;
 
 	p = (t_philo *)value;
-	while (1)
+	while (p->is_full == FALSE && p->c->someone_died == FALSE)
 	{
-		if (p->is_full)
-			break ;
-		sem_wait(p->c->death_check);
 		if (is_time_to_die(p))
 			return (rest_in_peace(p));
-		sem_post(p->c->death_check);
-		usleep(1000);
+		usleep(500);
 	}
 	return (NULL);
 }
 
-void		create_hunger_checker(t_philo *p)
+int			create_hunger_checker(t_philo *p)
 {
 	pthread_t	thread;
 
 	if (pthread_create(&thread, NULL, hunger_checker, p))
-		printf("Fail to create hunger checker thread.\n");
+		return (error_msg_end("Error: Fail to create hunger checker\n", p));
 	pthread_detach(thread);
+	return (EXIT_SUCCESS);
 }

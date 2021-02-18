@@ -6,7 +6,7 @@
 /*   By: yuhan <yuhan@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:07:03 by yuhan             #+#    #+#             */
-/*   Updated: 2021/02/09 22:50:19 by yuhan            ###   ########.fr       */
+/*   Updated: 2021/02/18 22:00:14 by yuhan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,14 @@ int			ft_atoi(const char *str)
 		i++;
 	}
 	return (num * sign);
+}
+
+u_int32_t	ft_atoi_pos(const char *str)
+{
+	int		num;
+
+	num = ft_atoi(str);
+	if (num > 0)
+		return (num);
+	return (-num);
 }
